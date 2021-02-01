@@ -1,12 +1,26 @@
-echo Pulling Arch Linux x86 Config
+echo Installing Packages Arch Linux x86 
 cd $HOME
-if  pacman -Qk git 
-then
-		echo git installed
-else
-		echo Installing git
-		sudo pacman -S git
-fi
+packages = (
+'git'
+'wget'
+'vim'
+'vi'
+'zsh'
+'yay'
+'chromium'
+'neofetch'
+'discord'
+'python'
+)
+
+for package in"${packages[@]}"; do
+		echo "Installing: ${package}"
+		sudo pacman -S "$package" --noconfirm --needed
+done
+
+# Ask if security needed
 #git clone https://github.com/ChrisTitusTech/secure-linux.git
 #cd secure-linux
 #sh secure.sh
+
+echo "Finished!"

@@ -1,6 +1,6 @@
 echo Installing Packages Arch Linux x86 
 cd $HOME
-packages = (
+PKGS=(
 'git'
 'wget'
 'vim'
@@ -13,12 +13,11 @@ packages = (
 'python'
 )
 
-for package in"${packages[@]}"; do
-		echo "Installing: ${package}"
-		sudo pacman -S "$package" --noconfirm --needed
+for PKG in "${PKGS[@]}"; do
+    echo "INSTALLING: ${PKG}"
+    sudo pacman -S "$PKG" --noconfirm --needed
 done
-
-# Ask if security needed
+# Security 
 #git clone https://github.com/ChrisTitusTech/secure-linux.git
 #cd secure-linux
 #sh secure.sh

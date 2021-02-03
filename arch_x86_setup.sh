@@ -11,6 +11,8 @@ PKGS=(
 'neofetch'
 'discord'
 'python'
+'npm'
+'x86-video-amdgpu'
 )
 
 for PKG in "${PKGS[@]}"; do

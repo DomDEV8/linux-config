@@ -15,6 +15,7 @@ PKGS=(
 'x86-video-amdgpu'
 'base-devel'
 'go'
+'noto-fonts-emoji'
 )
 
 for PKG in "${PKGS[@]}"; do

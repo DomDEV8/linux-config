@@ -1,3 +1,22 @@
+cd $HOME
+PKGS=(
+'vim'
+'git'
+'zsh'
+'chromium'
+'base-devel'
+'noto-fonts'
+'wget'
+'konsole'
+		)
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+for PKG in "${PKGS[@]}"; do
+		echo "Installing: ${PKG}"
+		pacman -S "$PKG" --noconfirm --needed
+done
+
 echo "-------------------------"
 echo "Do you want to install GUI?[y/n]"
 echo "-------------------------"
@@ -39,24 +58,5 @@ if [ $gui = 2 ]; then
 					echo "-------------------------"
 					echo "sudo not found, please install and try again"
 					echo "-------------------------"
-
-cd $HOME
-PKGS=(
-'vim'
-'git'
-'zsh'
-'chromium'
-'base-devel'
-'noto-fonts'
-'wget'
-'konsole'
-		)
-
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-for PKG in "${PKGS[@]}"; do
-		echo "Installing: ${PKG}"
-		pacman -S "$PKG" --noconfirm --needed
-done
 
 echo "Installation Finished successfully"

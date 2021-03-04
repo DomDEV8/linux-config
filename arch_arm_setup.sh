@@ -8,7 +8,9 @@ else if [[ "$ask_gui" == "n"]] || [[ "$ask_gui" == "N"]] || [[ "ask_gui" == "no"
 		gui=1
 else
 		gui=0
-		echo "Incorrect value"
+		echo "-------------------------"
+		echo "GUI not selected"
+		echo "-------------------------"
 fi
 
 if [ $gui = 2 ]; then
@@ -20,10 +22,23 @@ if [ $gui = 2 ]; then
 				echo "-------------------------"
 				echo "Installing LXQT"
 				echo "-------------------------"
+				if [pacman -Ss sudo]; then
+						sudo pacman -S lxqt
+				else 
+					echo "-------------------------"
+					echo "sudo not found, please install and try again"
+					echo "-------------------------"
+
 		else if [[ "$dm" == "x"]] || [[ "$dm" == "X"]]
 				echo "-------------------------"
 				echo "Installing XFCE4"
 				echo "-------------------------"
+				if [pacman -Ss sudo]; then
+						sudo pacman -S xfce4 
+				else 
+					echo "-------------------------"
+					echo "sudo not found, please install and try again"
+					echo "-------------------------"
 
 cd $HOME
 PKGS=(

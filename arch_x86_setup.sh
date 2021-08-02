@@ -1,3 +1,31 @@
+x=0
+y=0
+while [$x == 5]
+	do
+		echo "Are you currently using Artix Linux? [Y/N]"
+		read linuxOs
+
+		if ["$linuxOs" == "y"] || ["$linuxOs" == "Y"]; then
+			PKGS+=('')
+			x=1
+		elif ["$linuxOs" == "n"] || ["$linuxOs" == "N"]; then
+			PKGS+=('base-devel')
+			x=1
+		fi
+		echo "Are you using AMD or Intel CPU? [A/C]"
+		read cpu
+
+		if ["$cpu" == "y"] || ["$cpu" == "Y"]; then
+
+			y=1
+		elif ["$cpu" == "n"] || ["$cpu" == "N"]; then
+
+			y=1
+		fi
+
+
+	done
+
 echo Installing Packages Arch Linux x86 
 cd $HOME
 PKGS=(
@@ -12,10 +40,13 @@ PKGS=(
 'python'
 'npm'
 'x86-video-amdgpu'
-'base-devel'
 'go'
+'guake'
+'kitty'
 'noto-fonts-emoji'
 )
+
+
 
 for PKG in "${PKGS[@]}"; do
     echo "INSTALLING: ${PKG}"

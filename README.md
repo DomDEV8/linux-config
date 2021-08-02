@@ -1,5 +1,7 @@
 # linux-config
-My current Linux configuration files for Arch Linux and Debian ARM.
+My configuration and essential packages for Arch-based and Debian-based systems.
+
+There are only AMD drivers included in this config.
 
 Files List:
 - arch_x86_setup.sh - quick Arch Linux x86 setup

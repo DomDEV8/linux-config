@@ -51,7 +51,6 @@ PKGS=(
 'neovim'
 'vi'
 'zsh'
-'yay'
 'chromium'
 'neofetch'
 'python'

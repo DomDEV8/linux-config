@@ -16,10 +16,10 @@ while [$x == 5]
 		read cpu
 
 		if ["$cpu" == "y"] || ["$cpu" == "Y"]; then
-
+			PKGS=('amd-ucode')
 			y=1
 		elif ["$cpu" == "n"] || ["$cpu" == "N"]; then
-
+			PKGS=('intel-ucode')
 			y=1
 		fi
 

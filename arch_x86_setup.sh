@@ -1,5 +1,6 @@
 x=0
 y=0
+z=0
 while [$x == 5]
 	do
 		echo "Are you currently using Artix Linux? [Y/N]"
@@ -12,17 +13,31 @@ while [$x == 5]
 			PKGS+=('base-devel')
 			x=1
 		fi
+
 		echo "Are you using AMD or Intel CPU? [A/C]"
 		read cpu
 
-		if ["$cpu" == "y"] || ["$cpu" == "Y"]; then
+		if ["$cpu" == "a"] || ["$cpu" == "A"]; then
 			PKGS=('amd-ucode')
 			y=1
-		elif ["$cpu" == "n"] || ["$cpu" == "N"]; then
+		elif ["$cpu" == "i"] || ["$cpu" == "I"]; then
 			PKGS=('intel-ucode')
 			y=1
 		fi
 
+		echo "Are you using AMD, Intel or Nvidia GPU? [A/C/N]"
+		read gpu
+
+		if ["$gpu" == "a"] || ["$gpu" == "A"]; then
+			PKGS=('')
+			z=1
+		elif ["$gpu" == "n"] || ["$gpu" == "N"]; then
+			PKGS=('')
+			z=1
+		elif ["$gpu" == "i"] || ["$gpu" == "I"]; then
+			PKGS=('')
+			z=1
+		fi
 
 	done
 

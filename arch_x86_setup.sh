@@ -1,7 +1,29 @@
-=0
+x=0
 y=0
 z=0
-while [$x == 5]
+
+PKGS=(
+'git'
+'wget'
+'neovim'
+'vim'
+'zsh'
+'chromium'
+'neofetch'
+'python'
+'npm'
+'go'
+'guake'
+'kitty'
+'noto-fonts-emoji'
+)
+
+MAKEPKGS=(
+'https://aur.archlinux.org/vscodium-bin.git'
+'https://aur.archlinux.org/yay.git'
+)
+
+while [$x == 0] || [$y == 0] || [$z == 0];
 	do
 		echo "Are you currently using Artix Linux? [Y/N]"
 		read linuxOs
@@ -18,10 +40,10 @@ while [$x == 5]
 		read cpu
 
 		if ["$cpu" == "a"] || ["$cpu" == "A"] && ["$y" == 0]; then
-			PKGS=('amd-ucode')
+			PKGS+=('amd-ucode')
 			y=1
 		elif ["$cpu" == "i"] || ["$cpu" == "I"] && ["$y" == 0]; then
-			PKGS=('intel-ucode')
+			PKGS+=('intel-ucode')
 			y=1
 		fi
 
@@ -29,9 +51,8 @@ while [$x == 5]
 		read gpu
 
 		if ["$gpu" == "a"] || ["$gpu" == "A"] && ["$z" == 0]; then
-			PKGS=('x86-video-amdgpu')
-			## git clone https://aur.archlinux.org/opencl-amd.git
-			## git clone https://aur.archlinux.org/amdgpu-pro-installer.git
+			PKGS+=('x86-video-amdgpu')
+			MAKEPKGS+=('https://aur.archlinux.org/opencl-amd.git', 'https://aur.archlinux.org/amdgpu-pro-installer.git')
 			z=1
 		elif ["$gpu" == "n"] || ["$gpu" == "N"] && ["$z" == 0]; then
 			PKGS=('')
@@ -39,31 +60,11 @@ while [$x == 5]
 		elif ["$gpu" == "i"] || ["$gpu" == "I"] && ["$z" == 0]; then
 			PKGS=('')
 			z=1
-		fi
-
+		fi;
 	done
 
 echo Installing Arch x86 Packages 
-cd $HOME
-PKGS=(
-'git'
-'wget'
-'neovim'
-'vi'
-'zsh'
-'chromium'
-'neofetch'
-'python'
-'npm'
-'go'
-'guake'
-'kitty'
-'noto-fonts-emoji'
-)
 
-MAKEPKGS=(
-'https://aur.archlinux.org/vscodium-bin.git'
-)
 
 
 for PKG in "${PKGS[@]}"; do
@@ -77,20 +78,10 @@ for MAKEPKG in "${MAKEPKGS[@]}"; do
 	cd "$MAKEPKG"
 	makepkg --si	
 done
-git clone https://aur.archlinux.org/yay.git
-cd $HOME/yay
-makepkg --clean --install
-cd $HOME
-
-git clone https://aur.archlinux.org/vscodium-bin.git
-cd $HOME/vscodium-bin
-makepkg --clean --install
-cd $HOME
-
 
 # Security 
-git clone https://github.com/ChrisTitusTech/secure-linux.git
-cd $HOME/secure-linux
-sh secure.sh
+#git clone https://github.com/ChrisTitusTech/secure-linux.git
+#cd $HOME/secure-linux
+#sh secure.sh
 
 echo "Finished!"

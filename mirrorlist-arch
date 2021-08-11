@@ -1,0 +1,12 @@
+##
+## Arch Linux repository mirrorlist
+## Generate on 2021-07-29
+##
+
+## Worldwide
+#Server = http://mirrors.evowise.com/archlinux/$repo/os/$arch
+#Server = http://mirror.rackspace.com/archlinux/$repo/os/$arch
+Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch
+
+## United Kingdom
+Server = https://archlinux.uk.mirror.allworldit.com/archlinux/$repo/os/$arch

@@ -10,3 +10,9 @@ Files List:
 
 ## Important Notes:
 - Pacman.conf includes Artix repos at the moment, and has parrellel downloads enabled (up to 5)
+
+## This respository is not complete yet
+#Changes to be made:
+- add choice between minimal and additional packages,
+- makepkg fix for arch,
+- debian updates

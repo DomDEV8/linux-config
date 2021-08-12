@@ -16,6 +16,7 @@ PKGS=(
 'guake'
 'kitty'
 'noto-fonts-emoji'
+'lua'
 )
 
 MAKEPKGS=(

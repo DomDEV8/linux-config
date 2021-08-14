@@ -8,5 +8,18 @@
 #Server = http://mirror.rackspace.com/archlinux/$repo/os/$arch
 Server = https://mirror.rackspace.com/archlinux/$repo/os/$arch
 
+## China
+Server = https://mirrors.sjtug.sjtu.edu.cn/archlinux/$repo/os/$arch
+
+## France
+Server = https://arch-mirror.cloud.louifox.house/$repo/os/$arch
+
+## Netherlands
+Server = https://mirror.i3d.net/pub/archlinux/$repo/os/$arch
+Server = https://arch.jeweet.net/$repo/os/$arch
+
 ## United Kingdom
 Server = https://archlinux.uk.mirror.allworldit.com/archlinux/$repo/os/$arch
+
+## United States
+Server = https://mirrors.kernel.org/archlinux/$repo/os/$arch

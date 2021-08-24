@@ -85,4 +85,6 @@ done
 #cd $HOME/secure-linux
 #sh secure.sh
 
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 echo "Finished!"

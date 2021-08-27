@@ -1,5 +1,6 @@
 PKG = {
 'mesa-dri'
+'htop'
 'vulkan-loader'
 'mesa-vulkan-radeon'
 'mesa-vaapi'

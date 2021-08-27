@@ -31,4 +31,10 @@ for PKG in "${PKGS[@]}"; do
     sudo pacman -S "$PKG" --noconfirm --needed
 done
 
+touch $HOME/mirrorlist-arch
+reflector --save $HOME/mirrorlist-arch -c gb -c fr -c cn -c nl -c it -c ca -c nl -c us -f 20 -p "https"
+cp -r /etc/pacman.d/mirrorlist-arch /etc/pacman.d/mirrrorlist-arch-default
+sudo mv $HOME/mirrorlist-arch /etc/pacman.d/
+
+
 echo "Finished!"

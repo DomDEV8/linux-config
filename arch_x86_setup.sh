@@ -15,6 +15,8 @@ PKGS=(
 'noto-fonts-emoji'
 'lua'
 'reflector'
+'amd-ucode'
+'xf86-video-amdgpu'
 )
 
 MAKEPKGS=(

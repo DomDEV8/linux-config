@@ -67,7 +67,7 @@ sudo apt upgrade -y
 
 for PKG in "${PKGS[@]}"; do
 		echo "Installing: ${PKG}"
-		apt install "$PKG" -y
+		sudo apt install "$PKG" -y
 done
 
 

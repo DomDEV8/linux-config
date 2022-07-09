@@ -11,7 +11,7 @@ PKGS=(
 
 REPOS=(
   "sudo add-apt-repository ppa:ubuntu-lxc/stable"
-  )
+)
 
 GIT_PKGS=(
 
@@ -38,7 +38,8 @@ echo "       _   _ _                 _           ____
                                            |_| "       
 
 echo "This script will download and install all required packages, this process may take a while.."
-sleep 3
+echo "Enter email you want to use for SSH Key:"
+read ssh_email
 
 echo "Starting the script"
 
@@ -79,6 +80,11 @@ for PKG in "${GIT_PKGS[@]}"; do
     cd "$PKG"
 done
 
+# Generating ssh key
+ssh-keygen -t ed25519 -C ssh_email 
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+
 # List all repositories and PPAs
 
 for APT in `find /etc/apt/ -name \*.list`; do
@@ -93,3 +99,5 @@ for APT in `find /etc/apt/ -name \*.list`; do
         fi
     done
 done
+
+echo "Your public ssh key: ${cat ~/.ssh/id_ed25519.pub}"

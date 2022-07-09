@@ -1,12 +1,13 @@
+cd $HOME
 PKGS=(
-"neovim"
-"git"
-"zsh"
-"wget"
-"htop"
-"llvm"
-"dpkg-dev"
-"golang"
+  "neovim"
+  "git"
+  "zsh"
+  "wget"
+  "htop"
+  "llvm"
+  "dpkg-dev"
+  "golang"
 )
 
 REPOS=(
@@ -69,11 +70,15 @@ for PKG in "${PKGS[@]}"; do
 		apt install "$PKG" -y
 done
 
+
 # Start configuration
 
 echo "Package Installation complete"
 
 # Install github packages
+
+# Change default shell to zsh
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 for PKG in "${GIT_PKGS[@]}"; do
     git clone "$PKG"

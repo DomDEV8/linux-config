@@ -11,7 +11,7 @@ PKGS=(
 )
 
 REPOS=(
-  "sudo add-apt-repository ppa:ubuntu-lxc/stable"
+  # "sudo add-apt-repository ppa:ubuntu-lxc/stable"
 )
 
 GIT_PKGS=(
@@ -23,6 +23,23 @@ APT=(
 "/var/cache/apt/archives/lock"
 "/var/lib/dpkg/lock"
 )
+
+verbose='false'
+
+function print_usage {
+  echo "./rpi_ubuntu.sh -v"
+  echo "-v Verbose"
+}
+
+while getopts 'v' flag; do
+  case "${flag}" in
+    v) verbose='true';;
+    *) print_usage
+    exit 1 ;;
+  esac
+done
+
+
 
 echo "Welcome to:"
 echo "       _   _ _                 _           ____                           
@@ -44,24 +61,44 @@ read ssh_email
 
 echo "Starting the script"
 
-# Prevent the apt process issue
+# Prevent the apt database lock, present in the latest ubuntu version
 
 echo "Removing old apt directories"
 
 for DIR in "${APT[@]}"; do
+  if [ verbose ]
+  then
+    echo "Removing ${DIR}"
+  fi
   sudo rm "$DIR"
 done
 
 
-sudo dpkg --configure -a
+echo "running DPKG configurator"
 
-echo "Apt update"
+if [$verbose]
+then
+  sudo dpkg -qq --configure -a
+else
+  sudo dpkg --configure -a
+fi
 
-sudo apt update
-sudo apt upgrade -y
+
+echo "updating packages"
+if [$verbose]
+then
+  sudo apt -qq update
+  sudo apt -qq upgrade -y
+else 
+  sudo apt update
+  sudo apt upgrade -y
+fi
 
 # Add repositories
 
+for REPO in "${REPOS[@]}"; do
+  sudo add-apt-repository "$REPO"
+done
 
 # Install packages
 
@@ -69,7 +106,6 @@ for PKG in "${PKGS[@]}"; do
 		echo "Installing: ${PKG}"
 		sudo apt install "$PKG" -y
 done
-
 
 # Start configuration
 
@@ -85,13 +121,15 @@ for PKG in "${GIT_PKGS[@]}"; do
     cd "$PKG"
 done
 
-# Generating ssh key
-ssh-keygen -t ed25519 -C ssh_email 
-eval "$(ssh-agent -s)"
-ssh-add ~/.ssh/id_ed25519
+# Generating ssh key if email provided
+if [ $ssh_email ]
+then
+  ssh-keygen -t ed25519 -C ssh_email 
+  eval "$(ssh-agent -s)"
+  ssh-add ~/.ssh/id_ed25519
+fi
 
 # List all repositories and PPAs
-
 for APT in `find /etc/apt/ -name \*.list`; do
     grep -Po "(?<=^deb\s).*?(?=#|$)" $APT | while read ENTRY ; do
         HOST=`echo $ENTRY | cut -d/ -f3`

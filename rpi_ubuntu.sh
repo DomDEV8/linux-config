@@ -1,3 +1,4 @@
+#!/bin/bash
 cd $HOME
 PKGS=(
   "neovim"
@@ -41,10 +42,11 @@ done
 
 # If verbose is false, set apt commands to quiet mode
 
+arg=""
 if [ -z ${val}]; then
-  args = "-qq"
+  arg="-qq"
 else
-  args = ""
+  arg=""
 fi
 
 
@@ -72,10 +74,6 @@ echo "Starting the script"
 echo "Removing old apt directories"
 
 for DIR in "${APT[@]}"; do
-  if [ verbose ]
-  then
-    echo "Removing ${DIR}"
-  fi
   sudo rm -rf "$DIR"
 done
 

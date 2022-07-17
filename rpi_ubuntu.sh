@@ -11,7 +11,7 @@ PKGS=(
 )
 
 REPOS=(
-  # "sudo add-apt-repository ppa:ubuntu-lxc/stable"
+   "sudo add-apt-repository ppa:ubuntu-lxc/stable"
 )
 
 GIT_PKGS=(
@@ -39,10 +39,17 @@ while getopts 'v' flag; do
   esac
 done
 
+# If verbose is false, set apt commands to quiet mode
+
+if [ -z ${val}]; then
+  args = "-qq"
+else
+  args = ""
+fi
 
 
 echo "Welcome to:"
-echo "       _   _ _                 _           ____                           
+echo " _   _ _                 _           ____                           
       | | | | |__  _   _ _ __ | |_ _   _  / ___|  ___ _ ____   _____ _ __ 
       | | | | '_ \| | | | '_ \| __| | | | \___ \ / _ \ '__\ \ / / _ \ '__|
       | |_| | |_) | |_| | | | | |_| |_| |  ___) |  __/ |   \ V /  __/ |   
@@ -56,8 +63,7 @@ echo "       _   _ _                 _           ____
                                            |_| "       
 
 echo "This script will download and install all required packages, this process may take a while.."
-echo "Enter email you want to use for SSH Key:"
-read ssh_email
+read -p "Enter email you want to use for SSH Key:" ssh_email
 
 echo "Starting the script"
 
@@ -70,29 +76,16 @@ for DIR in "${APT[@]}"; do
   then
     echo "Removing ${DIR}"
   fi
-  sudo rm "$DIR"
+  sudo rm -rf "$DIR"
 done
 
-
-echo "running DPKG configurator"
-
-if [$verbose]
-then
-  sudo dpkg -qq --configure -a
-else
-  sudo dpkg --configure -a
-fi
+sudo dpkg arg --configure -a
 
 
 echo "updating packages"
-if [$verbose]
-then
-  sudo apt -qq update
-  sudo apt -qq upgrade -y
-else 
-  sudo apt update
-  sudo apt upgrade -y
-fi
+
+sudo apt arg update
+sudo apt arg upgrade -y
 
 # Add repositories
 
@@ -104,7 +97,7 @@ done
 
 for PKG in "${PKGS[@]}"; do
 		echo "Installing: ${PKG}"
-		sudo apt install "$PKG" -y
+		sudo apt arg install "$PKG" -y
 done
 
 # Start configuration
@@ -114,6 +107,7 @@ echo "Package Installation complete"
 # Install github packages
 
 # Change default shell to zsh
+
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 for PKG in "${GIT_PKGS[@]}"; do
@@ -122,6 +116,7 @@ for PKG in "${GIT_PKGS[@]}"; do
 done
 
 # Generating ssh key if email provided
+
 if [ $ssh_email ]
 then
   ssh-keygen -t ed25519 -C ssh_email 
@@ -130,6 +125,7 @@ then
 fi
 
 # List all repositories and PPAs
+
 for APT in `find /etc/apt/ -name \*.list`; do
     grep -Po "(?<=^deb\s).*?(?=#|$)" $APT | while read ENTRY ; do
         HOST=`echo $ENTRY | cut -d/ -f3`
@@ -142,5 +138,7 @@ for APT in `find /etc/apt/ -name \*.list`; do
         fi
     done
 done
+
+# Print ssh key
 
 echo "Your public ssh key: ${cat ~/.ssh/id_ed25519.pub}"

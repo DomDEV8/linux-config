@@ -5,14 +5,24 @@ PKGS=(
   "git"
   "zsh"
   "wget"
+  "lua"
   "htop"
+  "nodejs"
+  "npm"
+  "build-essential"
   "llvm"
+  "clang"
   "dpkg-dev"
   "golang"
+  "kitty"
+  "nala"
+  "python3-pip"
 )
 
 REPOS=(
-   "sudo add-apt-repository ppa:ubuntu-lxc/stable"
+  "sudo add-apt-repository ppa:ubuntu-lxc/stable"
+  "echo 'deb http://deb.volian.org/volian/ scar main' | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list"
+  "wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null"
 )
 
 GIT_PKGS=(
@@ -20,9 +30,9 @@ GIT_PKGS=(
 )
 
 APT=(
-"/var/lib/apt/lists/lock"
-"/var/cache/apt/archives/lock"
-"/var/lib/dpkg/lock"
+  "/var/lib/apt/lists/lock"
+  "/var/cache/apt/archives/lock"
+  "/var/lib/dpkg/lock"
 )
 
 verbose='false'

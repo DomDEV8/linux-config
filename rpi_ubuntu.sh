@@ -19,10 +19,12 @@ PKGS=(
   "python3-pip"
 )
 
+PKG_REMOVE=(
+  "snapd"
+)
+
 REPOS=(
   "sudo add-apt-repository ppa:ubuntu-lxc/stable"
-  "echo 'deb http://deb.volian.org/volian/ scar main' | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list"
-  "wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null"
 )
 
 GIT_PKGS=(
@@ -101,12 +103,25 @@ for REPO in "${REPOS[@]}"; do
   sudo add-apt-repository "$REPO"
 done
 
+# Add nala Repositories
+
+"echo 'deb http://deb.volian.org/volian/ scar main' | sudo tee /etc/apt/sources.list.d/volian-archive-scar-unstable.list"
+"wget -qO - https://deb.volian.org/volian/scar.key | sudo tee /etc/apt/trusted.gpg.d/volian-archive-scar-unstable.gpg > /dev/null"
+
+# Uninstall packages
+
+for PKG in "${PKG_REMOVE[@]}"; do
+		echo "Installing: ${PKG}"
+		sudo apt purge "$PKG" -y
+done
+
 # Install packages
 
 for PKG in "${PKGS[@]}"; do
 		echo "Installing: ${PKG}"
 		sudo apt install "$PKG" -y
 done
+
 
 # Start configuration
 

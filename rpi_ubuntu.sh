@@ -87,13 +87,13 @@ for DIR in "${APT[@]}"; do
   sudo rm -rf "$DIR"
 done
 
-sudo dpkg arg --configure -a
+sudo dpkg --configure -a
 
 
 echo "updating packages"
 
-sudo apt arg update
-sudo apt arg upgrade -y
+sudo apt update
+sudo apt upgrade -y
 
 # Add repositories
 
@@ -105,7 +105,7 @@ done
 
 for PKG in "${PKGS[@]}"; do
 		echo "Installing: ${PKG}"
-		sudo apt arg install "$PKG" -y
+		sudo apt install "$PKG" -y
 done
 
 # Start configuration

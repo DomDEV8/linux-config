@@ -94,8 +94,8 @@ sudo dpkg --configure -a
 
 echo "updating packages"
 
-sudo apt update
-sudo apt upgrade -y
+sudo apt $arg update
+sudo apt $arg upgrade -y
 
 # Add repositories
 
@@ -138,14 +138,23 @@ for PKG in "${GIT_PKGS[@]}"; do
     cd "$PKG"
 done
 
+# Get Docker
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
 # Generating ssh key if email provided
 
 if [ $ssh_email ]
 then
-  ssh-keygen -t ed25519 -C ssh_email 
+  ssh-keygen -t ed25519 -C $ssh_email 
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/id_ed25519
 fi
+
+# Add user to group
+
+sudo usermod -aG docker $whoami
 
 # List all repositories and PPAs
 

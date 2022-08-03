@@ -31,6 +31,10 @@ GIT_PKGS=(
 
 )
 
+SERVICES=(
+  "mysql"
+)
+
 APT=(
   "/var/lib/apt/lists/lock"
   "/var/cache/apt/archives/lock"
@@ -133,6 +137,11 @@ echo "Package Installation complete"
 
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | zsh
+
+sed `31 i export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"` ~/.zshrc
+sed `32 i [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"` ~/.zshrc
+
 for PKG in "${GIT_PKGS[@]}"; do
     git clone "$PKG"
     cd "$PKG"
@@ -142,6 +151,11 @@ done
 
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
+
+for SERVICE in "${SERVICES[@]}"; do
+  sudo systemctl enable "$SERVICE"
+  sudo systemctl start "$SERVICE"
+done
 
 # Generating ssh key if email provided
 

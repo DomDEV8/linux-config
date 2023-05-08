@@ -24,6 +24,7 @@ PKG_REMOVE=(
 )
 
 REPOS=(
+  "sudo add-apt-repository ppa:deadsnakes/ppa"
   "sudo add-apt-repository ppa:ubuntu-lxc/stable"
 )
 
